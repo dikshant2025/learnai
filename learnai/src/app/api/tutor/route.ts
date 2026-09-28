@@ -32,6 +32,7 @@ export async function POST(req: Request) {
         major: clip(b.profile.major, 80),
         detail: clip(b.profile.detail, 20),
         style: clip(b.profile.style, 20),
+        birthDate: clip(b.profile.birthDate, 10),
       } : undefined,
       course: clip(b.course, 120),
     };
