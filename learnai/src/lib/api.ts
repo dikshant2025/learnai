@@ -1,6 +1,12 @@
 "use client";
 
 import type { ChatMessage } from "./types";
+import { getAccessToken } from "./cloud";
+
+async function headers(): Promise<Record<string, string>> {
+  const token = await getAccessToken();
+  return { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) };
+}
 
 const SOURCES_MARKER = "<<<SOURCES>>>";
 
@@ -22,7 +28,7 @@ export async function streamPost(
 ): Promise<{ text: string; sources: ChatMessage["sources"] }> {
   const res = await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: await headers(),
     body: JSON.stringify(payload),
     signal,
   });
@@ -51,7 +57,7 @@ export async function streamPost(
 export async function generate<T>(kind: string, args: Record<string, unknown>): Promise<T> {
   const res = await fetch("/api/generate", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: await headers(),
     body: JSON.stringify({ kind, args }),
   });
   if (!res.ok) throw new Error(await errorText(res));
