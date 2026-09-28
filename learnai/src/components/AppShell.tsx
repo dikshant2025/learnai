@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   BookOpen,
   Brain,
+  CircleHelp,
   CalendarDays,
   FlaskConical,
   GraduationCap,
@@ -24,6 +25,7 @@ import {
 import { useStore, useHydrated } from "@/lib/store";
 import { streak, level } from "@/lib/learning";
 import SearchDialog from "./SearchDialog";
+import { PageTip, WelcomeTour } from "./Guide";
 
 const NAV = [
   { href: "/", label: "Home", icon: Home },
@@ -37,6 +39,7 @@ const NAV = [
   { href: "/research", label: "Research", icon: BookOpen },
   { href: "/plan", label: "Study Plan", icon: CalendarDays },
   { href: "/progress", label: "Progress", icon: LineChart },
+  { href: "/guide", label: "How to use", icon: CircleHelp },
 ];
 
 function useApplySettings() {
@@ -224,9 +227,11 @@ export default function AppShell({ children }: { children: ReactNode }) {
         </header>
         <AIStatusBanner />
         <main id="main" className="flex-1">
+          <PageTip />
           {children}
         </main>
       </div>
+      <WelcomeTour />
       {searchOpen && (
         <SearchDialog
           onClose={() => setSearchOpen(false)}
