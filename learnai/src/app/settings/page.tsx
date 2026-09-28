@@ -5,6 +5,34 @@ import { Download, Upload } from "lucide-react";
 import { getState, initialState, replaceState, setState, useHydrated, useStore } from "@/lib/store";
 import { Chips, PageHeader } from "@/components/ui";
 import type { Profile, Settings, State } from "@/lib/types";
+import { MIN_AGE, ageFrom } from "@/lib/profile";
+
+/** Date of birth can be corrected, but never to an age under the minimum. */
+function BirthDateField({ value, onSave }: { value: string; onSave: (v: string) => void }) {
+  const [draft, setDraft] = useState(value);
+  const [error, setError] = useState("");
+  return (
+    <div>
+      <label className="label" htmlFor="dob">Date of birth</label>
+      <input
+        id="dob"
+        className="input"
+        type="date"
+        value={draft}
+        onChange={(e) => {
+          const v = e.target.value;
+          setDraft(v);
+          const age = ageFrom(v);
+          if (age === null) return setError("Please enter a real date.");
+          if (age < MIN_AGE) return setError(`You must be at least ${MIN_AGE}.`);
+          setError("");
+          onSave(v);
+        }}
+      />
+      {error && <p className="mt-1 text-sm text-bad">{error}</p>}
+    </div>
+  );
+}
 
 export default function SettingsPage() {
   const hydrated = useHydrated();
@@ -49,6 +77,7 @@ export default function SettingsPage() {
             <label className="label" htmlFor="n">Name</label>
             <input id="n" className="input" value={profile.name} onChange={(e) => setP({ name: e.target.value })} />
           </div>
+          <BirthDateField value={profile.birthDate} onSave={(v) => setP({ birthDate: v })} />
           <div>
             <label className="label" htmlFor="el">Education level</label>
             <select id="el" className="input" value={profile.educationLevel} onChange={(e) => setP({ educationLevel: e.target.value })}>
