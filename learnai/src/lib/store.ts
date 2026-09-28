@@ -16,7 +16,7 @@ export const COLORS = ["#6366f1", "#10b981", "#f59e0b", "#ef4444", "#06b6d4", "#
 export function initialState(): State {
   return {
     version: 1,
-    profile: { name: "", educationLevel: "", major: "", detail: "balanced", style: "simple", goals: "" },
+    profile: { name: "", educationLevel: "", major: "", detail: "balanced", style: "simple", goals: "", birthDate: "" },
     settings: { theme: "system", largeText: false, dyslexia: false, reducedMotion: false },
     courses: [],
     chats: [],
