@@ -111,7 +111,8 @@ export default function SettingsPage() {
       <section className="card mt-6 space-y-3 p-5">
         <h2 className="h2">Your data</h2>
         <p className="text-sm muted">
-          You&apos;re in <b>guest mode</b>: everything is stored privately in this browser. Export a backup to move it to another device.
+          Everything is saved privately to your account and syncs to any device you sign in on. You can also export a backup file
+          to keep your own copy.
         </p>
         <div className="flex flex-wrap gap-2">
           <button className="btn" onClick={exportData}><Download className="h-4 w-4" /> Export backup</button>
