@@ -17,6 +17,7 @@ function sanitize(args: Record<string, unknown>) {
         major: clip(p.major, 80),
         detail: clip(p.detail, 20),
         style: clip(p.style, 20),
+        birthDate: clip(p.birthDate, 10),
       };
     }
   }
