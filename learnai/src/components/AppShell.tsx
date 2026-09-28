@@ -26,6 +26,7 @@ import { useStore, useHydrated } from "@/lib/store";
 import { streak, level } from "@/lib/learning";
 import SearchDialog from "./SearchDialog";
 import { PageTip, WelcomeTour } from "./Guide";
+import { AccountBox } from "./AuthGate";
 
 const NAV = [
   { href: "/", label: "Home", icon: Home },
@@ -148,6 +149,7 @@ function Sidebar({ onNavigate, onSearch }: { onNavigate?: () => void; onSearch: 
       )}
 
       <div className="mt-auto pt-4">
+        <AccountBox />
         <div className="card mb-2 p-3 text-sm">
           <div className="flex items-center justify-between">
             <span className="font-semibold">Level {lv.level}</span>
