@@ -1,20 +1,30 @@
 "use client";
 
 import { get, set, del } from "idb-keyval";
+import { downloadDoc, removeDoc, uploadDoc } from "./cloud";
 
-/** Document text lives in IndexedDB so large files don't blow the localStorage quota. */
+/**
+ * Document text lives in IndexedDB (fast local cache) and, when signed in, in the
+ * user's private cloud folder so it's available on every device.
+ */
 
 export const MAX_FILE_MB = 20;
 export const ACCEPT = ".pdf,.docx,.txt,.md,.markdown,.csv,.json,.html,.htm";
 
 export async function saveDocText(id: string, text: string) {
   await set(`doc:${id}`, text);
+  await uploadDoc(id, text);
 }
 export async function getDocText(id: string): Promise<string> {
-  return ((await get(`doc:${id}`)) as string) ?? "";
+  const local = (await get(`doc:${id}`)) as string | undefined;
+  if (local) return local;
+  const remote = await downloadDoc(id).catch(() => null);
+  if (remote) await set(`doc:${id}`, remote).catch(() => {});
+  return remote ?? "";
 }
 export async function deleteDocText(id: string) {
   await del(`doc:${id}`);
+  await removeDoc(id);
 }
 
 export async function extractText(file: File): Promise<string> {
