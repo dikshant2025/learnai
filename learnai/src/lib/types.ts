@@ -115,6 +115,10 @@ export type Profile = {
   detail: "short" | "balanced" | "detailed";
   style: "simple" | "academic" | "socratic" | "visual" | "examples";
   goals: string;
+  /** YYYY-MM-DD, self-reported at sign-up (age check). */
+  birthDate: string;
+  /** Set when the entered birth date is under the minimum age. */
+  ageBlocked?: boolean;
 };
 
 export type Settings = {
