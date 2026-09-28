@@ -11,6 +11,7 @@ const LIMIT = Number(process.env.RATE_LIMIT_PER_MINUTE || 20);
 
 export function clientIp(req: Request) {
   return (
+    req.headers.get("x-learnai-user") || // set by src/proxy.ts for signed-in users
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     req.headers.get("x-real-ip") ||
     "local"
