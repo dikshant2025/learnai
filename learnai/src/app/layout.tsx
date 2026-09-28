@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import AppShell from "@/components/AppShell";
 import AuthGate from "@/components/AuthGate";
+import ProfileGate from "@/components/ProfileGate";
 
 export const metadata: Metadata = {
   title: "LearnAI — Your personal AI learning system",
@@ -25,7 +26,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="antialiased">
         <AuthGate>
-          <AppShell>{children}</AppShell>
+          <ProfileGate>
+            <AppShell>{children}</AppShell>
+          </ProfileGate>
         </AuthGate>
       </body>
     </html>
