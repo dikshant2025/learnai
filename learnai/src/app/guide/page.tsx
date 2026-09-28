@@ -14,13 +14,11 @@ const QUICK_START = [
 ];
 
 const FAQ: [string, string][] = [
-  ["Do I need an account?", "No. Just open the site and start. Everything is saved in your browser on your device."],
-  [
-    "Will my documents and progress be saved?",
-    "Yes — they stay in this browser on this device, even after you close it. They're removed only if you clear this site's browsing data or use a private/incognito window. Export a backup from Profile & Settings to be safe.",
-  ],
-  ["Can I use it on my phone and my laptop?", "Yes, but each device keeps its own copy. Move your progress with Export backup → Import backup (re-upload documents on the new device)."],
-  ["Can other people see my files?", "No. Your data stays in your own browser and isn't shared with other users of the site."],
+  ["How do I sign in?", "Enter your email, and we'll email you a code. Type the code in and you're in — no password. The first time, this creates your account."],
+  ["I didn't get the code.", "Wait a minute and check your spam or junk folder. Then use “Send a new code” (you can request one every 60 seconds). Only the newest code works."],
+  ["Will my documents and progress be saved?", "Yes. Everything is saved to your account automatically a moment after you make a change. If you're offline, it saves when you're back online."],
+  ["Can I use it on my phone and my laptop?", "Yes. Sign in with the same email on each device and all your notes, documents and progress are there."],
+  ["Can other people see my files?", "No. Your data is stored privately in your account and only you can access it. Remember to sign out on shared computers."],
   ["My PDF doesn't work.", "It's probably scanned (a picture of pages). The app needs PDFs whose text you can select. Try exporting a text-based PDF or a Word file."],
   ["The AI gave an error or is slow.", "Wait a few seconds and try again. If you send many requests quickly there's a short per-minute limit."],
   ["Is the AI always right?", "Usually, but not always. For important facts, use Research (it shows sources) or set the tutor to answer only from your uploaded material."],
