@@ -41,17 +41,35 @@ export async function extractText(file: File): Promise<string> {
   return text;
 }
 
+let pdfWorker: Worker | null = null;
+
 async function extractPdf(file: File) {
-  const pdfjs = await import("pdfjs-dist");
-  pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
-  const pdf = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise;
+  // The "legacy" build includes polyfills so PDFs also work in Safari and older browsers.
+  const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+  if (!pdfWorker) {
+    pdfWorker = new Worker(new URL("pdfjs-dist/legacy/build/pdf.worker.min.mjs", import.meta.url), { type: "module" });
+    pdfjs.GlobalWorkerOptions.workerPort = pdfWorker;
+  }
+  const task = pdfjs.getDocument({ data: await file.arrayBuffer() });
+  const pdf = await task.promise;
   const pages: string[] = [];
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i);
-    const content = await page.getTextContent();
-    const text = content.items.map((it: any) => ("str" in it ? it.str + (it.hasEOL ? "\n" : " ") : "")).join("");
+    // Read the text stream by hand: Safari can't `for await` over a ReadableStream,
+    // which is what page.getTextContent() does internally.
+    const reader = page.streamTextContent().getReader();
+    let text = "";
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      for (const it of value.items as { str?: string; hasEOL?: boolean }[]) {
+        if (typeof it.str === "string") text += it.str + (it.hasEOL ? "\n" : " ");
+      }
+    }
     pages.push(`[Page ${i}]\n${text.trim()}`);
+    page.cleanup();
   }
+  void task.destroy();
   const all = pages.join("\n\n");
   if (all.replace(/\[Page \d+\]/g, "").trim().length < 20) {
     throw new Error("This PDF looks like scanned images — no selectable text was found.");
