@@ -54,7 +54,7 @@ export const GUIDE: GuideItem[] = [
     tips: [
       "Scanned PDFs (photos of pages) can't be read — the text must be selectable.",
       "For a whole textbook, upload one chapter per file for the best quizzes and flashcards.",
-      "Documents are kept in this browser on this device. They stay there until you clear your browser's site data.",
+      "Documents are saved to your account, so they're there on any phone or computer you sign in on.",
     ],
   },
   {
@@ -169,10 +169,10 @@ export const GUIDE: GuideItem[] = [
 export const DATA_NOTE = {
   title: "Where your stuff is saved",
   points: [
-    "No account needed. Everything you do — documents, chats, flashcards, progress — is saved in this browser on this device.",
-    "It stays until you clear this site's data in your browser (or use a private/incognito window, which forgets everything when closed).",
-    "Using another phone or computer? Go to Profile & Settings → Export backup, then Import backup on the other device. (Re-upload documents there.)",
-    "Your data is private: it isn't shared with other people who use this site.",
+    "You sign in with just your email — we send you a code, no password to remember.",
+    "Everything you do — documents, chats, flashcards, progress — is saved to your account automatically.",
+    "Sign in with the same email on any phone or computer and your work is there.",
+    "Your data is private: only you can see it. On a shared computer, click Sign out (bottom of the menu) when you're done.",
   ],
 };
 
