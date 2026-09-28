@@ -56,7 +56,7 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
       <h1 className="text-3xl font-bold tracking-tight">
-        {greeting()}
+        {hydrated ? greeting() : "Welcome"}
         {hydrated && name ? `, ${name}` : ""}
       </h1>
       <p className="muted mt-1">What would you like to learn today?</p>
