@@ -4,7 +4,8 @@ import { useSyncExternalStore } from "react";
 import type { DayActivity, State } from "./types";
 
 /**
- * Guest-mode store: everything lives in this browser's localStorage.
+ * App state lives in this browser's localStorage (a local cache) and, when the
+ * user is signed in, is synced to their account by cloud.ts.
  * Large document text lives in IndexedDB (see docs.ts).
  */
 
@@ -84,7 +85,7 @@ export function replaceState(next: State) {
   listeners.forEach((l) => l());
 }
 
-function subscribe(l: () => void) {
+export function subscribe(l: () => void) {
   listeners.add(l);
   return () => listeners.delete(l);
 }
