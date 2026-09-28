@@ -15,6 +15,7 @@ const QUICK_START = [
 
 const FAQ: [string, string][] = [
   ["How do I sign in?", "Enter your email, and we'll email you a code. Type the code in and you're in — no password. The first time, this creates your account."],
+  ["Why do you ask for my date of birth?", "LearnAI is only for adults aged 18 and older, so we check your age when you set up your profile. Only your age (not your birth date) is shared with the AI, to help it pitch explanations at the right level."],
   ["I didn't get the code.", "Wait a minute and check your spam or junk folder. Then use “Send a new code” (you can request one every 60 seconds). Only the newest code works."],
   ["Will my documents and progress be saved?", "Yes. Everything is saved to your account automatically a moment after you make a change. If you're offline, it saves when you're back online."],
   ["Can I use it on my phone and my laptop?", "Yes. Sign in with the same email on each device and all your notes, documents and progress are there."],
